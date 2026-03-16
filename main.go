@@ -32,6 +32,7 @@ func main() {
 	}
 
 	app := NewApp()
+	legacyWindowsMode := shouldUseLegacyWindowStyle()
 
 	err := wails.Run(&options.App{
 		Title:     "SpotiFLAC",
@@ -39,7 +40,7 @@ func main() {
 		Height:    600,
 		MinWidth:  1024,
 		MinHeight: 600,
-		Frameless: true,
+		Frameless: !legacyWindowsMode,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
@@ -59,7 +60,7 @@ func main() {
 			WebviewIsTransparent:              false,
 			WindowIsTranslucent:               false,
 			DisableWindowIcon:                 false,
-			DisableFramelessWindowDecorations: false,
+			DisableFramelessWindowDecorations: legacyWindowsMode,
 		},
 	})
 

@@ -4,7 +4,7 @@
 
 Get Spotify tracks in true FLAC from Tidal, Qobuz & Amazon Music — no account required.
 
-![Windows](https://img.shields.io/badge/Windows-10%2B-0078D6?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjAgMjAiPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIwIDEwLjg3M1YyMEw4LjQ3OSAxOC41MzdsLjAwMS03LjY2NEgyMFptLTEzLjEyIDBsLS4wMDEgNy40NjFMMCAxNy40NjF2LTYuNTg4aDYuODhaTTIwIDkuMjczSDguNDhsLS4wMDEtNy44MUwyMCAwdjkuMjczWk02Ljg3OSAxLjY2NmwuMDAxIDcuNjA3SDBWMi41MzlsNi44NzktLjg3M1oiLz48L3N2Zz4=)
+![Windows](https://img.shields.io/badge/Windows-7%2B-0078D6?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjAgMjAiPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIwIDEwLjg3M1YyMEw4LjQ3OSAxOC41MzdsLjAwMS03LjY2NEgyMFptLTEzLjEyIDBsLS4wMDEgNy40NjFMMCAxNy40NjF2LTYuNTg4aDYuODhaTTIwIDkuMjczSDguNDhsLS4wMDEtNy44MUwyMCAwdjkuMjczWk02Ljg3OSAxLjY2NmwuMDAxIDcuNjA3SDBWMi41MzlsNi44NzktLjg3M1oiLz48L3N2Zz4=)
 ![macOS](https://img.shields.io/badge/macOS-10.13%2B-000000?style=for-the-badge&logo=apple&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-Any-FCC624?style=for-the-badge&logo=linux&logoColor=white)
 [![Telegram Channel](https://img.shields.io/badge/CHANNEL-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/spotiflac)
@@ -12,7 +12,59 @@ Get Spotify tracks in true FLAC from Tidal, Qobuz & Amazon Music — no account 
 
 ### [Download](https://github.com/afkarxyz/SpotiFLAC/releases)
 
+
+## Windows 7 Back-Port Notes
+
+This branch includes an initial Windows 7 compatibility back-port:
+
+- The app now detects legacy Windows versions at startup and automatically falls back to a non-frameless window style for Windows 7 to avoid compositor/UI glitches.
+- On Windows 10/11, the existing frameless mode is unchanged.
+
+> [!IMPORTANT]
+> Windows 7 requires a compatible WebView2 Runtime installation to run Wails applications.
+> If startup fails on Windows 7, install a WebView2 runtime build that still supports Windows 7.
+
 ![Image](https://github.com/user-attachments/assets/c2624ca5-8569-49f0-950e-4410b523cea1)
+
+## Build from Source
+
+### Requirements
+
+- [Go](https://go.dev/dl/) `1.26+` (matches `go.mod`)
+- [Node.js](https://nodejs.org/) `20+`
+- [pnpm](https://pnpm.io/installation)
+- [Wails CLI](https://wails.io/docs/gettingstarted/installation):
+
+```bash
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+```
+
+### 1) Clone and install dependencies
+
+```bash
+git clone https://github.com/afkarxyz/SpotiFLAC.git
+cd SpotiFLAC
+go mod download
+cd frontend && pnpm install && cd ..
+```
+
+### 2) Run in development mode
+
+```bash
+wails dev
+```
+
+### 3) Build release binaries
+
+```bash
+wails build
+```
+
+The output binary/artifacts will be placed in the Wails build output directory (usually `build/bin`).
+
+### Windows 7 note
+
+On Windows 7, ensure you have a WebView2 Runtime version that still supports Windows 7. Without it, the app may fail to start.
 
 ## Other projects
 
